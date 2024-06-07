@@ -1,7 +1,6 @@
 alsa-utils
 amd-ucode
 arch-install-scripts
-archinstall
 b43-fwcutter
 base
 base-devel
@@ -40,15 +39,12 @@ grub
 hdparm
 hyperv
 intel-ucode
-#ipw2100-fw
-#ipw2200-fw
 irssi
 iw
 iwd
 jfsutils
 kitty-terminfo
 less
-lftp
 libfido2
 libusb-compat
 linux
@@ -86,6 +82,9 @@ partclone
 parted
 partimage
 pcsclite
+pipewire
+pipewire-pulse
+pipewire-alsa
 ppp
 pptpclient
 pv
@@ -93,7 +92,6 @@ python
 python-psutil
 python-systemd
 refind
-#reflector
 reiserfsprogs
 rp-pppoe
 rsync
@@ -120,6 +118,7 @@ vim
 virtualbox-guest-utils-nox
 vpnc
 which
+wireplumber
 wireless-regdb
 wireless_tools
 wpa_supplicant
@@ -136,20 +135,30 @@ openssl
 gvfs
 gvfs-mtp
 networkmanager
-android-file-transfer
+sddm
 
-#Desktop
+# Minnimal Plasma Desktop for start
+plasma
+dolphin
+ark
+unzip
+unrar
+firefox
+konsole
 
 #systemutils
 btop
 xdg-user-dirs
-packagekit-qt5
 neofetch-git
+fastfetch
+
+# Drivers
+
+# Gaming Stuff
 
 #ParchLinux Core Packages
+calamares
+calamares-parch
 os-prober
-paru
-parch-emoji-ios
-vazirmatn-fonts
-parch-branding
-parch-pacman
+parch-base
+
