@@ -1,3 +1,3 @@
-# Parch Linux iso template
+# Parch Linux Gaming Edition
 
-## Use this template for making releases
+A WIP Gaming Distro Based on Parch
