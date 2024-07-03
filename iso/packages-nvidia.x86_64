@@ -157,6 +157,8 @@ nvidia-dkms
 nvidia-settings
 bumblebee
 nvidia-prime
+nvidia-utils
+mesa
 
 # Gaming Stuff
 steam

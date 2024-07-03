@@ -151,10 +151,20 @@ btop
 xdg-user-dirs
 neofetch-git
 fastfetch
+vulkan-intel
+vulkan-radeon
+amdvlk
 
 # Drivers
+mesa
+
 
 # Gaming Stuff
+steam
+wine
+wine-gecko
+wine-mono
+lutris
 
 #ParchLinux Core Packages
 calamares
