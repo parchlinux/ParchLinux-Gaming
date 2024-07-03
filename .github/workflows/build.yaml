@@ -33,6 +33,7 @@ jobs:
           cd ./out
           mkdir iso_parts
           7z -v1000m a iso_parts/"$(ls *.iso)".zip "$(ls *.iso)"
+          md5sum $(ls *.iso) > iso_parts/iso-md5sums-nvidia.txt
           md5sum iso_parts/* > iso_parts/md5sums-nvidia.txt
           gh release upload ${{ github.event.release.tag_name }} ./iso_parts/* -R ${{ github.repository }}
 
@@ -54,5 +55,6 @@ jobs:
           cd ./out
           mkdir iso_parts
           7z -v1000m a iso_parts/"$(ls *.iso)".zip "$(ls *.iso)"
+          md5sum $(ls *.iso) > iso_parts/iso-md5sums.txt
           md5sum iso_parts/* > iso_parts/md5sums.txt
           gh release upload ${{ github.event.release.tag_name }} ./iso_parts/* -R ${{ github.repository }}
