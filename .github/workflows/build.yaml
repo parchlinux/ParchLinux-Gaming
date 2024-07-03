@@ -24,8 +24,8 @@ jobs:
         run: pacman -Sy; pacman --noconfirm -S git archiso python python-pygithub github-cli p7zip
       - name: Replace packages and profile with Nvidia versions
         run: |
-          cp packages-nvidia.x86_64 packages.x86_64
-          cp profiledef-nvidia.sh profiledef.sh
+          cp iso/packages-nvidia.x86_64 iso/packages.x86_64
+          cp iso/profiledef-nvidia.sh iso/profiledef.sh
       - name: Build Nvidia image
         run: mkarchiso -v iso/
       - name: Upload Nvidia iso to the release
