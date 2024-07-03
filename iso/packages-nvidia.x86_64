@@ -153,8 +153,17 @@ neofetch-git
 fastfetch
 
 # Drivers
+nvidia-dkms
+nvidia-settings
+bumblebee
+nvidia-prime
 
 # Gaming Stuff
+steam
+wine
+wine-gecko
+wine-mono
+lutris
 
 #ParchLinux Core Packages
 calamares
