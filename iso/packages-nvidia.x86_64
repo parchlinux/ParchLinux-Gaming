@@ -232,3 +232,4 @@ os-prober
 parch-base
 parch-nvidia-mkinitcpio
 nvidia-pacman-hook
+parch-wallpapers
