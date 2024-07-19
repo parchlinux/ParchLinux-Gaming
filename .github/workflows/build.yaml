@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Packages via Pacman
-        run: pacman -Syu --noconfirm; pacman --noconfirm -S git archiso python python-pygithub github-cli p7zip
+        run: pacman -Syu --noconfirm; pacman --noconfirm -S git archiso python python-pygithub github-cli p7zip zip
       - name: Replace packages and profile with Nvidia versions
         run: |
           mv iso/packages-nvidia.x86_64 iso/packages.x86_64
@@ -48,7 +48,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Packages via Pacman
-        run: pacman -Syu --noconfirm; pacman --noconfirm -S git archiso python python-pygithub github-cli p7zip
+        run: pacman -Syu --noconfirm; pacman --noconfirm -S git archiso python python-pygithub github-cli p7zip zip
       - name: remove packages and profile of nvidia versions
         run: |
           rm -f iso/airootfs/etc/mkinitcpio.conf-nvidia
