@@ -31,6 +31,7 @@ jobs:
         run: mkarchiso -v iso/
       - name: Upload Nvidia iso to the release
         run: |
+          rm -rf ./work
           cd ./out
           mkdir iso_parts
           md5sum "$(ls *.iso)" > iso_parts/iso-md5sums-nvidia.txt
@@ -56,6 +57,7 @@ jobs:
         run: mkarchiso -v iso/
       - name: Upload non-Nvidia iso to the release
         run: |
+          rm -rf ./work
           cd ./out
           mkdir iso_parts
           md5sum "$(ls *.iso)" > iso_parts/iso-md5sums.txt
