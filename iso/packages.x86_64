@@ -209,8 +209,6 @@ xdg-user-dirs
 neofetch-git
 fastfetch
 vulkan-intel
-vulkan-radeon
-amdvlk
 
 # Drivers
 mesa
