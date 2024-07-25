@@ -64,3 +64,34 @@ jobs:
           zip -s 1500m iso_parts/"$(ls *.iso)".zip "$(ls *.iso)"
           md5sum iso_parts/* > iso_parts/md5sums.txt
           gh release upload ${{ github.event.release.tag_name }} ./iso_parts/* -R ${{ github.repository }}
+
+
+    
+  build-amd:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Packages via Pacman
+        run: pacman -Syu --noconfirm; pacman --noconfirm -S git archiso python python-pygithub github-cli p7zip zip
+      - name: remove packages and profile of nvidia versions and Replace packages and profile with AMD versions
+        run: |
+          rm -f iso/airootfs/etc/mkinitcpio.conf-nvidia
+          mv iso/packages-amd.x86_64 iso/packages.x86_64
+          mv iso/profiledef-amd.sh iso/profiledef.sh
+          rm -f iso/airoofs/etc/systemd/
+      - name: Build non-Nvidia image
+        run: mkarchiso -v iso/
+      - name: Upload AMD iso to the release
+        run: |
+          rm -rf ./work
+          cd ./out
+          mkdir iso_parts
+          md5sum "$(ls *.iso)" > iso_parts/iso-md5sums-amd.txt
+          zip -s 1500m iso_parts/"$(ls *.iso)".zip "$(ls *.iso)"
+          md5sum iso_parts/* > iso_parts/md5sums-amd.txt
+          gh release upload ${{ github.event.release.tag_name }} ./iso_parts/* -R ${{ github.repository }}
