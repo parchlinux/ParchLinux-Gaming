@@ -1,0 +1,8 @@
+[Unit]
+Description=Enable Nvidia mode for envycontrol
+
+[Service]
+ExecStart=/bin/bash /etc/systemd/system/envycontrol.sh
+
+[Install]
+WantedBy=multi-user.target
