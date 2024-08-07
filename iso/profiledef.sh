@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 
-iso_name="Parchlinux Gaming"
-iso_label="PARCHLINUX_GAMING$(date +%Y%m)"
+iso_name="Parchlinux Gaming Intel"
+iso_label="PARCHLINUX_GAMING_INTEL$(date +%Y%m)"
 iso_publisher="Parch Linux <https://parchlinux.com>"
 iso_application="Parch Linux Live/Rescue CD"
 iso_version="$(date +%Y.%m.%d)"
