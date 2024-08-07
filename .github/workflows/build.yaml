@@ -27,6 +27,10 @@ jobs:
           mv iso/packages-nvidia.x86_64 iso/packages.x86_64
           mv iso/profiledef-nvidia.sh iso/profiledef.sh
           mv iso/airootfs/etc/mkinitcpio.conf-nvidia iso/airootfs/etc/mkinitcpio.conf
+          chmod +x iso/airoofs/etc/systemd/system/envycontrol.sh
+          rm -f iso/airootfs/etc/mkinitcpio.conf-amd
+          rm -f iso/airootfs/etc/systemd/amd.service
+          rm -f iso/airootfs/etc/systemd/amd.sh
       - name: Build Nvidia image
         run: mkarchiso -v iso/
       - name: Upload Nvidia iso to the release
@@ -39,7 +43,7 @@ jobs:
           md5sum iso_parts/* > iso_parts/md5sums-nvidia.txt
           gh release upload ${{ github.event.release.tag_name }} ./iso_parts/* -R ${{ github.repository }}
 
-  build-non-nvidia:
+  build-intel:
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -50,12 +54,17 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Packages via Pacman
         run: pacman -Syu --noconfirm; pacman --noconfirm -S git archiso python python-pygithub github-cli p7zip zip
-      - name: remove packages and profile of nvidia versions
+      - name: remove packages and profile of amd/nvidia versions
         run: |
           rm -f iso/airootfs/etc/mkinitcpio.conf-nvidia
-      - name: Build non-Nvidia image
+          rm -f iso/airootfs/etc/mkinitcpio.conf-amd
+          rm -f iso/airoofs/etc/systemd/system/envycontrol.sh
+          rm -f iso/airoofs/etc/systemd/system/envycontrol.service
+          rm -f iso/airootfs/etc/systemd/amd.service
+          rm -f iso/airootfs/etc/systemd/amd.sh
+      - name: Build intel image
         run: mkarchiso -v iso/
-      - name: Upload non-Nvidia iso to the release
+      - name: Upload intel iso to the release
         run: |
           rm -rf ./work
           cd ./out
@@ -63,4 +72,39 @@ jobs:
           md5sum "$(ls *.iso)" > iso_parts/iso-md5sums.txt
           zip -s 1500m iso_parts/"$(ls *.iso)".zip "$(ls *.iso)"
           md5sum iso_parts/* > iso_parts/md5sums.txt
+          gh release upload ${{ github.event.release.tag_name }} ./iso_parts/* -R ${{ github.repository }}
+
+
+    
+  build-amd:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Packages via Pacman
+        run: pacman -Syu --noconfirm; pacman --noconfirm -S git archiso python python-pygithub github-cli p7zip zip
+      - name: remove packages and profile of nvidia versions and Replace packages and profile with AMD versions
+        run: |
+          rm -f iso/airootfs/etc/mkinitcpio.conf-nvidia
+          rm -f iso/airootfs/etc/mkinitcpio.conf
+          mv iso/airootfs/etc/mkinitcpio.conf-amd iso/airootfs/etc/mkinitcpio.conf
+          mv iso/packages-amd.x86_64 iso/packages.x86_64
+          mv iso/profiledef-amd.sh iso/profiledef.sh
+          rm -f iso/airoofs/etc/systemd/system/envycontrol.sh
+          rm -f iso/airoofs/etc/systemd/system/envycontrol.service
+          chmod +x iso/airoofs/etc/systemd/system/amd.sh
+      - name: Build AMD image
+        run: mkarchiso -v iso/
+      - name: Upload AMD iso to the release
+        run: |
+          rm -rf ./work
+          cd ./out
+          mkdir iso_parts
+          md5sum "$(ls *.iso)" > iso_parts/iso-md5sums-amd.txt
+          zip -s 1500m iso_parts/"$(ls *.iso)".zip "$(ls *.iso)"
+          md5sum iso_parts/* > iso_parts/md5sums-amd.txt
           gh release upload ${{ github.event.release.tag_name }} ./iso_parts/* -R ${{ github.repository }}
