@@ -28,6 +28,7 @@ jobs:
           mv iso/profiledef-nvidia.sh iso/profiledef.sh
           mv iso/airootfs/etc/mkinitcpio.conf-nvidia iso/airootfs/etc/mkinitcpio.conf
           chmod +x iso/airoofs/etc/systemd/system/envycontrol.sh
+          rm -f iso/airootfs/etc/mkinitcpio.conf-amd
           rm -f iso/airootfs/etc/systemd/amd.service
           rm -f iso/airootfs/etc/systemd/amd.sh
       - name: Build Nvidia image
@@ -42,7 +43,7 @@ jobs:
           md5sum iso_parts/* > iso_parts/md5sums-nvidia.txt
           gh release upload ${{ github.event.release.tag_name }} ./iso_parts/* -R ${{ github.repository }}
 
-  build-non-nvidia:
+  build-intel:
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -53,16 +54,17 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Packages via Pacman
         run: pacman -Syu --noconfirm; pacman --noconfirm -S git archiso python python-pygithub github-cli p7zip zip
-      - name: remove packages and profile of nvidia versions
+      - name: remove packages and profile of amd/nvidia versions
         run: |
           rm -f iso/airootfs/etc/mkinitcpio.conf-nvidia
+          rm -f iso/airootfs/etc/mkinitcpio.conf-amd
           rm -f iso/airoofs/etc/systemd/system/envycontrol.sh
           rm -f iso/airoofs/etc/systemd/system/envycontrol.service
           rm -f iso/airootfs/etc/systemd/amd.service
           rm -f iso/airootfs/etc/systemd/amd.sh
-      - name: Build non-Nvidia image
+      - name: Build intel image
         run: mkarchiso -v iso/
-      - name: Upload non-Nvidia iso to the release
+      - name: Upload intel iso to the release
         run: |
           rm -rf ./work
           cd ./out
@@ -88,6 +90,8 @@ jobs:
       - name: remove packages and profile of nvidia versions and Replace packages and profile with AMD versions
         run: |
           rm -f iso/airootfs/etc/mkinitcpio.conf-nvidia
+          rm -f iso/airootfs/etc/mkinitcpio.conf
+          mv iso/airootfs/etc/mkinitcpio.conf-amd iso/airootfs/etc/mkinitcpio.conf
           mv iso/packages-amd.x86_64 iso/packages.x86_64
           mv iso/profiledef-amd.sh iso/profiledef.sh
           rm -f iso/airoofs/etc/systemd/system/envycontrol.sh
