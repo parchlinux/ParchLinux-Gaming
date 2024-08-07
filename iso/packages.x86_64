@@ -209,10 +209,10 @@ xdg-user-dirs
 neofetch-git
 fastfetch
 vulkan-intel
+lib32-vulkan-intel
 
 # Drivers
 mesa
-xf86-video-intel
 lib32-mesa
 lib32-vulkan-icd-loader
 vulkan-icd-loader
