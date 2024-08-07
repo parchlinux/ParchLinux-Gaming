@@ -1,0 +1,8 @@
+[Unit]
+Description=Enable AMD mode
+
+[Service]
+ExecStart=/bin/bash /etc/systemd/system/amd.sh
+
+[Install]
+WantedBy=multi-user.target
