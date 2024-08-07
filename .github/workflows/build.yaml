@@ -28,6 +28,8 @@ jobs:
           mv iso/profiledef-nvidia.sh iso/profiledef.sh
           mv iso/airootfs/etc/mkinitcpio.conf-nvidia iso/airootfs/etc/mkinitcpio.conf
           chmod +x iso/airoofs/etc/systemd/system/envycontrol.sh
+          rm -f iso/airootfs/etc/systemd/amd.service
+          rm -f iso/airootfs/etc/systemd/amd.sh
       - name: Build Nvidia image
         run: mkarchiso -v iso/
       - name: Upload Nvidia iso to the release
@@ -56,6 +58,8 @@ jobs:
           rm -f iso/airootfs/etc/mkinitcpio.conf-nvidia
           rm -f iso/airoofs/etc/systemd/system/envycontrol.sh
           rm -f iso/airoofs/etc/systemd/system/envycontrol.service
+          rm -f iso/airootfs/etc/systemd/amd.service
+          rm -f iso/airootfs/etc/systemd/amd.sh
       - name: Build non-Nvidia image
         run: mkarchiso -v iso/
       - name: Upload non-Nvidia iso to the release
@@ -88,7 +92,8 @@ jobs:
           mv iso/profiledef-amd.sh iso/profiledef.sh
           rm -f iso/airoofs/etc/systemd/system/envycontrol.sh
           rm -f iso/airoofs/etc/systemd/system/envycontrol.service
-      - name: Build non-Nvidia image
+          chmod +x iso/airoofs/etc/systemd/system/amd.sh
+      - name: Build AMD image
         run: mkarchiso -v iso/
       - name: Upload AMD iso to the release
         run: |
